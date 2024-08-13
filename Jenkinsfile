@@ -29,7 +29,7 @@ pipeline {
         stage('Static Code Analysis') {
            steps {
              script {
-               withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
+               withSonarQubeEnv(credentialsId: 'sonar') {
                  sh 'mvn -f hello-app/pom.xml clean package sonar:sonar -Dsonar.projectKey=new-pipeline -Dsonar.projectName=new-pipeline'
              }
              }
