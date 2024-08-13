@@ -26,10 +26,11 @@ pipeline {
                 }
             }
         }
-        stage('Quality Gate Status') {
+        stage('Static Code Analysis') {
            steps {
              script {
-               waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+               withSonarQubeEnv(credentialsId: 'sonar-token')
+                 sh 'mvn clean package sonar:sonar'
              }
            }
         }
