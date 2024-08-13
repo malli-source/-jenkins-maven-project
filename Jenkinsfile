@@ -30,7 +30,7 @@ pipeline {
            steps {
              script {
                withSonarQubeEnv(credentialsId: 'sonarqubetoken') {
-                 sh 'mvn clean package sonar:sonar -Dsonar.projectKey=new-pipeline -Dsonar.projectName=new-pipeline'
+                 sh 'mvn -f hello-app/pom.xml clean package sonar:sonar -Dsonar.projectKey=new-pipeline -Dsonar.projectName=new-pipeline'
              }
              }
            }
