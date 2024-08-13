@@ -1,13 +1,26 @@
 pipeline {
-  agent any
-  stages {
-    stage("Build") {
-      steps {
-        git url: 'https://github.com/malli-source/-jenkins-maven-project.git'
-        withMaven {
-          sh "mvn clean verify -f hello-app/pom.xml"
-        } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs reports
-      }
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -f hello-app/pom.xml -B -DskipTests clean package'
+            }
+            post {
+                success {
+                    echo "Now Archiving the Artifacts....."
+                    archiveArtifacts artifacts: '**/*.jar'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test -f hello-app/pom.xml'
+            }
+            post {
+                always {
+                    junit 'hello-app/target/surefire-reports/*.xml'
+                }
+            }
+        }
     }
-  }
 }
