@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn --version'
-                sh 'mvn -f hello-app/pom.xml -B -DskipTests clean package'
+                bat 'mvn --version'
+                bat 'mvn -f hello-app/pom.xml -B -DskipTests clean package'
             }
             post {
                 success {
@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn test -f hello-app/pom.xml'
+                bat 'mvn test -f hello-app/pom.xml'
             }
             post {
                 always {
@@ -27,7 +27,7 @@ pipeline {
            steps {
              script {
                withSonarQubeEnv(credentialsId: 'sonar') {
-                 sh 'mvn -f hello-app/pom.xml clean package sonar:sonar -Dsonar.projectKey=malli-sonar -Dsonar.projectName=malli-sonar'
+                 bat 'mvn -f hello-app/pom.xml clean package sonar:sonar -Dsonar.projectKey=malli-sonar -Dsonar.projectName=malli-sonar'
              }
              }
            }
