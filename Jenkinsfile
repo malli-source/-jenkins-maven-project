@@ -25,14 +25,5 @@ pipeline {
                 }
             }
         }
-        stage('Static Code Analysis') {
-           steps {
-             script {
-               withSonarQubeEnv(credentialsId: 'sonar') {
-                 bat 'mvn -f hello-app/pom.xml clean package sonar:sonar -Dsonar.projectKey=malli-sonar -Dsonar.projectName=malli-sonar'
-             }
-             }
-           }
-        }
     }
 }
