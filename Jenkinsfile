@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                bat 'mvn --version'
                 bat 'mvn -f hello-app/pom.xml -B -DskipTests clean package'
             }
             post {
