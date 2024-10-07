@@ -1,14 +1,6 @@
 pipeline { 
     agent any
     stages {
-        
-        stage('Compile') {
-            steps {
-            bat "java --version"
-            bat  "mvn compile"
-            }
-        }
-        
         stage('Test') {
             steps {
                 bat "mvn -f first-app/first-app/pom.xml"
@@ -17,7 +9,7 @@ pipeline {
         
         stage('Package') {
             steps {
-                bat "mvn package"
+                bat "mvn package first-app/first-app"
             }
         }
     }
