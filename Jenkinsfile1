@@ -11,7 +11,7 @@ pipeline {
         
         stage('Test') {
             steps {
-                bat "mvn clean install"
+                bat "mvn -f first-app/first-app/pom.xml"
             }
         }
         
