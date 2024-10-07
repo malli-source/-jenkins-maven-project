@@ -3,13 +3,13 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bat "mvn -f first-app/first-app/pom.xml"
+                bat "mvn test -f first-app/first-app/pom.xml"
             }
         }
         
         stage('Package') {
             steps {
-                bat "mvn package first-app/first-app"
+                bat "mvn package -f first-app/first-app"
             }
         }
     }
