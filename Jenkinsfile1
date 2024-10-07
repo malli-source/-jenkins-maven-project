@@ -6,13 +6,6 @@ pipeline {
                 bat "mvn test -f first-app/first-app/pom.xml"
             }
         }
-        
-        stage('Package') {
-            steps {
-                bat "mvn package -f first-app/first-app"
-            }
-        }
-
         stage('Package') {
             steps {
               script {
