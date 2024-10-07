@@ -9,7 +9,7 @@ pipeline {
         stage('Package') {
             steps {
               script {
-                withSonarQubeEnv('sonar') {
+                withSonarQubeEnv(credentialsId: 'sonar') {
                   bat 'mvn -f first-app/first-ap/pom.xml clean package sonar:sonar -Dsonar.projectKey=malli-sonar -Dsonar.projectName=malli-sonar'
                 }
               }
