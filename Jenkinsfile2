@@ -20,7 +20,7 @@ pipeline {
         steps {
           script {
             withCredentials([string(credentialsId: 'dockersecret', variable: 'dockerhubuser')]) {
-                bat 'dcoker login -u malli118 -p ${dockerhubuser}'
+                bat 'docker login -u malli118 -p ${dockerhubuser}'
             }
                 bat 'docker push malli118/sonarqube'
           }
