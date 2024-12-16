@@ -1,10 +1,30 @@
 pipeline {
-    agent { dockerfile true }
+    agent any
     stages {
-        stage('Test') {
-            steps {
-                sh 'node --version'
-            }
+      stage('SCM') {
+        steps {
+            git 'https://github.com/malli-source/-jenkins-maven-project.git'
+        } 
+      }
+      stage('Code Compile') {
+        steps {
+             bat 'mvn -f first-app/first-app/pom.xml -B clean package'
         }
+      }
+      stage('Build image') {
+        steps {
+            bat 'docker build -t malli118/sonarqube:javaApp .'
+        }
+      }
+      stage('dockerbuild') {
+        steps {
+          script {
+            withCredentials([string(credentialsId: 'dockersecret', variable: 'dockerhubuser')]) {
+                bat 'dcoker login -u malli118 -p ${dockerhubuser}'
+            }
+                bat 'docker push malli118/sonarqube'
+          }
+        }
+      }
     }
 }
